@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MISSION CONTROL — Design System
+   "Deep space command center" aesthetic
+   ============================================================ */
+
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Core surfaces */
+  --color-void: #04050a;
+  --color-abyss: #070912;
+  --color-surface: #0b0e1a;
+
+  /* Accents */
+  --color-violet: #8b7bff;
+  --color-iris: #6366f1;
+  --color-cyan: #22d3ee;
+  --color-aqua: #2dd4bf;
+  --color-emerald: #34d399;
+  --color-amber: #fbbf24;
+  --color-rose: #fb7185;
+  --color-magenta: #e879f9;
+  --color-glow: #a78bff;
+}
+
+:root {
+  --bg: #04050a;
+  --fg: #e7e9f3;
+  --muted: #8b90a8;
+  --line: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--line);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden; /* OS shell — inner panels scroll */
+}
+
+::selection {
+  background: rgba(139, 123, 255, 0.3);
+  color: #fff;
+}
+
+/* ---------- Scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 123, 255, 0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 123, 255, 0.4);
+  background-clip: content-box;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+.glass {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-hover {
+  transition: border-color 0.4s ease, background 0.4s ease,
+    box-shadow 0.4s ease, transform 0.4s ease;
+}
+.glass-hover:hover {
+  border-color: rgba(139, 123, 255, 0.35);
+  background: linear-gradient(
+    160deg,
+    rgba(139, 123, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+}
+
+/* Subtle top highlight line on cards */
+.edge-light {
+  position: relative;
+}
+.edge-light::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  opacity: 0.7;
+}
+
+.glow-text {
+  text-shadow: 0 0 24px rgba(167, 139, 255, 0.55);
+}
+
+.gradient-text {
+  background: linear-gradient(110deg, #c4b5fd, #67e8f9, #a78bff, #f0abfc);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: textShimmer 6s linear infinite;
+}
+
+/* Grid floor backdrop */
+.grid-overlay {
+  background-image: linear-gradient(
+      rgba(139, 123, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(139, 123, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    #000 25%,
+    transparent 80%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 0%,
+    #000 25%,
+    transparent 80%
+  );
+}
+
+/* Noise texture overlay */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+
+@keyframes textShimmer {
+  to {
+    background-position: 250% center;
+  }
+}
+
+@keyframes auroraDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(8%, -6%) scale(1.15);
+  }
+  66% {
+    transform: translate(-6%, 5%) scale(0.92);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-aurora {
+  animation: auroraDrift 24s ease-in-out infinite;
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spinSlow 28s linear infinite;
+}
+
+.pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  animation: pulseRing 2.4s cubic-bezier(0.25, 0.8, 0.4, 1) infinite;
+}
